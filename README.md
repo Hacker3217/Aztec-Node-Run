@@ -1,408 +1,325 @@
 <div align="center">
 
-# 💻 Gensyn-ai-Rl-Swarm_Guide {Mac/Linux} 💻
+# 👨🏻‍💻 **Aztec Sequencer Guide** 👨🏻‍💻
 
 </div>
 
+# 🖥️ Device/System Requirements 
 
-# Device/System Requirements 🖥️
+![image](https://github.com/user-attachments/assets/9e7e78a8-ddeb-4e0b-90a8-46f2ab5886b3)
 
-![image](https://github.com/user-attachments/assets/4fbf23bb-846c-4def-be24-157c51fa0b4e)
 
 
 # Pre-Requirements 🛠
 
-# Install Python and Other Tools
+- Docker & Docker Compose
 
-* For **Linux/Wsl**
+   🔺(Let run your docker in background if u are using local Device)
 
-```
-sudo apt update && sudo apt install -y python3 python3-venv python3-pip curl wget screen git lsof
+- Aztec Tool
 
-```
+- Sepolia Rpc URL
 
-* **For Mac**
 
-```
-brew install python
-```
 
-Check Version
+# Install All Require Dependecies
 
 ```
-python3 --version
+sudo apt-get update && sudo apt-get upgrade -y
 ```
 
-
-# Install Node.js , npm & yarn
-
-* For **Linux/Wsl**
+* Install Node.js 
 
 ```
 curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash - && sudo apt update && sudo apt install -y nodejs
 ```
 
-* Install Yarn (linux)
+* Other Packages
 
 ```
-curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
-```
-
-```
-echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list > /dev/null
-```
-
-```
-sudo apt update && sudo apt install -y yarn
+sudo apt install curl iptables build-essential git wget lz4 jq make gcc nano automake autoconf tmux htop nvme-cli libgbm1 pkg-config libssl-dev libleveldb-dev tar clang bsdmainutils ncdu unzip libleveldb-dev screen ufw -y
 ```
 
 
-* For **Mac**
+# Install Docker & Docker Compose
+
 
 ```
-brew install node && corepack enable && npm install -g yarn
-```
-
-* Check version **(Linux/Mac)**
-
-```
-node -v
-```
-```
-npm -v
+sudo apt update && sudo apt install -y apt-transport-https ca-certificates curl software-properties-common
 ```
 
 ```
-yarn -v
-```
-
-
-<div align="center">
-
-# 👨🏻‍💻 Start The Node (Linux/Mac) 
-
-</div>
-
-
-* 1️⃣ Clone RL-SWARM Repo
-
-```
-git clone https://github.com/gensyn-ai/rl-swarm.git
-```
-
-
-* 2️⃣ Create a screen session **(vps)**
-
-```
-screen -S gensyn
-````
-
-* 3️⃣ Navigate to rl-swarm
-
-```
-cd rl-swarm
-```
-
-* 4️⃣ Create & Activate a Virtual Environment
-
-```
-python3 -m venv .venv
-source .venv/bin/activate
-```
-
-* 5️⃣ Install Left-over dependencies
-
-```
-cd modal-login
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
 ```
 
 ```
-yarn install
+echo "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
 ```
 
 ```
-yarn upgrade &&  yarn add next@latest &&  yarn add viem@latest
-```
-
-* 6️⃣ Run the swarm Node 🚀
-
-```
-cd ..
+sudo apt update && sudo apt install -y docker-ce && sudo systemctl enable --now docker
 ```
 
 ```
-./run_rl_swarm.sh
+sudo usermod -aG docker $USER && newgrp docker
 ```
 
-- After Running the Above command it will promt `Would you like to connect to the Testnet? [Y/n]` Enter `Y`
-
-- After than it will promt `>> Which swarm would you like to join (Math (A) or Math Hard (B))? [A/b]`  Enter   `a`
-
-- After than it will promt `>> How many parameters (in billions)? [0.5, 1.5, 7, 32, 72]`    
-
-👇See below and Choose the model Depends on Your System! 
-
-<pre>
-- Qwen 2.5 0.5B                - Recommended 4GB RAM, (1GB DOWNLOAD)
-- Qwen 2.5 1.5B                - Recommended 8GB RAM, (4GB DOWNLOAD)
-- Qwen 2.5 7B                  - Recommended 16GB RAM, (15GB DOWNLOAD)
-- Qwen 2.5 32B (4 bit)         - Recommended 50GB RAM, (35GB DOWNLOAD)
-- Qwen 2.5 72B (4 bit)         - Recommended 100GB RAM, (70GB DOWNLOAD)
-</pre>
-    
-- After that A web Pop-Up will appear, It will ask u to Login ( if no web pop-up then u have to paste this on ur brower `http://localhost:3000/` 
-
-
-- Now Login With Your Email Id, Enter OTP and back to ur Terminal/Wsl? **( VPS users check FAQ1 )**
-
-![image](https://github.com/user-attachments/assets/1fed4b08-4ec4-44de-868c-b2d314cd2a02)
-
-
-- Now U can see A `ORG_ID` On ur Terminal..Save it!
-
-
-* Now It will promt `Would you like to push models you train in the RL swarm to the Hugging Face Hub? [y/N]` Enter `N`
-
-<img width="1223" alt="Screenshot 2025-05-01 at 4 47 30 PM" src="https://github.com/user-attachments/assets/05fcfc61-b562-4089-b21f-ba95b1036a24" />
-
-
-
-
-![image](https://github.com/user-attachments/assets/33344c45-a108-4671-af31-a5e431878736)
-
-
-Here we go🚀
-
-Its Done ✅
-
-It will Generate Logs Soon🙌
-
-
-* Detach from `screen session` **(vps)**
-
-Use `Ctrl + A` and then press `D`
-
-* Attach to gensyn Screen to see Logs
 
 ```
-screen -r gensyn
+sudo curl -L "https://github.com/docker/compose/releases/download/$(curl -s https://api.github.com/repos/docker/compose/releases/latest | jq -r .tag_name)/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose && sudo chmod +x /usr/local/bin/docker-compose
+```
+
+
+*  Verify installation
+
+```
+docker --version && docker-compose --version
 ```
 
 
 
-<div align="center">
-
-#  🛠 FAQ & Troubleshoot 🛠
-
-</div>
-
-
-# 1️⃣ How to Login or access  http://localhost:3000/ in VPS? 📶
-
-* Open a new Terminal and login ur vps 
-
-* Allow Incoming connection on VPS
+# Install the Aztec CLI
 
 ```
-sudo apt install ufw -y
+bash -i <(curl -s https://install.aztec.network)
+```
+
+
+* Lets Config it to your corrent Shell/Path
+
+```
+echo 'export PATH="$HOME/.aztec/bin:$PATH"' >> ~/.bashrc
+```
+
+```
+source ~/.bashrc
+```
+
+* Verify the Installation with-
+
+```
+aztec -h
+```
+
+
+* Set the correct version for the testnet
+
+```
+aztec-up alpha-testnet
+```
+
+
+# Load your wallet with Sepolia Faucet 
+
+https://sepolia-faucet.pk910.de/
+
+https://www.alchemy.com/faucets/ethereum-sepolia
+
+
+
+# Allow Incoming connections on Ports 
+
+```
 sudo ufw allow 22
-sudo ufw allow 3000/tcp
-```
-
-* Enable ufw
-
-```
+sudo ufw allow ssh
 sudo ufw enable
 ```
 
-* Install cloudflared on the VPS
-
 ```
-wget -q https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64.deb
-````
-
-```
-sudo dpkg -i cloudflared-linux-amd64.deb
+sudo ufw allow 40400
+sudo ufw allow 8080
 ```
 
-* Check version
-
-```
-cloudflared --version
-```
-
-* Make sure your Node is running on port 3000 in Previous Screen
-
-* Run the tunnel command
-
-```
-cloudflared tunnel --url http://localhost:3000
-```
-
-* Access the Link from your local machine
-
-    
-    ![image](https://github.com/user-attachments/assets/c5bdfec5-123d-4625-8da8-f46269700950)
-
-* Now follow Login!
- 
-* Done!✅
-
-
-
-# 2️⃣ Solution of OOM errors on MacBook (Memory/Cpu limit)
-
-* Open -
- ```
-nano ~/.zshrc
-```
-
-* Paste in the file
-
-```
-export PYTORCH_MPS_HIGH_WATERMARK_RATIO=0.0
-export PYTORCH_ENABLE_MPS_FALLBACK=1
-```
-* Reload with
-
-```
-  source ~/.zshrc
-```
-
-# 3️⃣ How to get the Node Name?
-
-* Check the image below to get your Node id!
-
-![image](https://github.com/user-attachments/assets/728c6401-75c8-43b4-973c-e9d515c4b453)
-
-# 4️⃣ Save your `swarm.pem` file (for future login)
-
-* open a wsl window 
-
-* If U have to copy this file to your local machine from VPS then Run this command from your local Terminal--
-
-```
-scp USERNAME@YOUR_IP:~/rl-swarm/swarm.pem ~/swarm.pem
-```
-
-It will save here in ur Terminal's Root Directory!
-
-
-# 5️⃣ How To start the Next Day (Local Pc)
-
-*
- ```
-  cd rl-swarm
- ```
-
-*
- ```
-  python3 -m venv .venv
-```
-
-*
-```
-source .venv/bin/activate
-```
-
-*
-```
-./run_rl_swarm.sh
-```
-
-
-
-
-
-<div align="center">
-
-# 📈 How to upgrade to new release (v0.4.2) {Mac/Linux} 
+<div  align="center">
+   
+#  Start Your Sequencer 🍥
 
 </div>
 
-* Go to gensyn screen (Vps)
+* Create a Screen Session
 
 ```
-screen -r gensyn
+screen -S aztec
 ```
 
-* Stop your node by `ctrl+c` if u are on gensyn screen (Vps)
-
-* Move to rl-swarm directory
-```
-cd rl-swarm
-```
-
-* Pull the latest release (If u didn't make any changes in files previously)
+  🔺🔺--- Execute below given command to Start Your node & Dont forget to make changes in it-
 
 ```
-git pull
-```
-
-* Pull the latest release ( If u make any changes in files previously)
-
-
-```
-git reset --hard HEAD
-git pull
+aztec start --node --archiver --sequencer \
+  --network alpha-testnet \
+  --l1-rpc-urls Eth_Sepolia_RPC \
+  --l1-consensus-host-urls Eth-beacon_sepolia_RPC \
+  --sequencer.validatorPrivateKey 0xYourPrivateKey \
+  --sequencer.coinbase YourAddress \
+  --p2p.p2pIp Your_ip
 ```
 
 
-* Start the swarm Node 🚀
+* Replace `Eth_Sepolia_RPC` with your actual one!         -From (as per video)
+
+https://developer.metamask.io/key/active-endpoints
+
+* Replace `Eth_Sepolia_RPC` with your actual one!         -From (as per screenshot 👇)
+
+https://www.alchemy.com
+
+![image](https://github.com/user-attachments/assets/3ccd2f62-57ab-4452-a1da-4ba9a1bf5924)
+
+
+* Replace `Eth-beacon_sepolia_RPC` with your actual one            -From (As per video)
+ https://console.chainstack.com/projects/
+
+* Replace `Eth-beacon_sepolia_RPC` with your actual one            -From (As per Screenshot 👇)
+
+[(https://drpc.org/dashboard)](https://drpc.org/dashboard)
+
+![image](https://github.com/user-attachments/assets/7c73dc77-e67a-4cbe-9636-18f7e4a591f0)
+
+* Replace `0xYourPrivateKey` with your actual EVM wallet pvt key    🔺 (dont forget to add 0x at starting)
+
+* Replace `YourAddress` with your actual evm wallet address
+
+* Replace `Your_ip` with your `External IP`  ... 
+
+     -U can get External IP by running  `curl ifconfig.me`
+
+
+* It will take few times to download and Sync! 🥶
+
+![Screenshot 2025-05-02 164041](https://github.com/user-attachments/assets/17dd3df2-3136-4dd0-8dde-70cf19291503)
+
+
+* The Successfull Running Should Look like this 👇
+
+
+![Screenshot 2025-05-02 172143](https://github.com/user-attachments/assets/37ae2455-8b98-4642-bf14-0f5e1ed90cf2)
+
+
+# ♦️ Use this Template for saving data:
+
+ ------👇Save These Info/Data👇 ------
+
+Aztec Sequencer Node ( XXXXX dc)
+
+• Ethereum sepolia rpc : 
+
+• Beacon_sepolia_RPC : 
+
+• PVT KEY : 
+
+• MM Public Address : 
+
+• IP ( cloud vps) : 
+
+• Block Number : 
+
+• Base64 encoded string : 
+
+------ 👆Save These Info/Data👆 ------
+
+
+# Detached and Attached From the Screen
+
+* For detached from screen session - `ctrl` , `a` + `d`
+
+* For Attach - 
 
 ```
-./run_rl_swarm.sh
+screen -r aztec
 ```
 
-- After Running the Above command it will promt `Would you like to connect to the Testnet? [Y/n]` Enter `Y`
+<div  align="center">
+   
+# Get Apprentice Role In dc- 😙
 
-- After than it will promt `>> Which swarm would you like to join (Math (A) or Math Hard (B))? [A/b]`  Enter   `a`
-
-- After than it will promt `>> How many parameters (in billions)? [0.5, 1.5, 7, 32, 72]`    
-
-👇See below and Choose the model Depends on Your System! 
-
-<pre>
-- Qwen 2.5 0.5B                - Recommended 4GB RAM, (1GB DOWNLOAD)
-- Qwen 2.5 1.5B                - Recommended 8GB RAM, (4GB DOWNLOAD)
-- Qwen 2.5 7B                  - Recommended 16GB RAM, (15GB DOWNLOAD)
-- Qwen 2.5 32B (4 bit)         - Recommended 50GB RAM, (35GB DOWNLOAD)
-- Qwen 2.5 72B (4 bit)         - Recommended 100GB RAM, (70GB DOWNLOAD)
-</pre>
-    
-- After that A web Pop-Up will appear, It will ask u to Login ( if no web pop-up then u have to paste this on ur brower `http://localhost:3000/` 
+</div>
 
 
-- Now Login With Your Email Id, Enter OTP and back to ur Terminal/Wsl? **( VPS users check FAQ1 )**
+📋 **Step 1: Get the latest proven block number**
 
-![image](https://github.com/user-attachments/assets/1fed4b08-4ec4-44de-868c-b2d314cd2a02)
+```
+curl -s -X POST -H 'Content-Type: application/json' \
+-d '{"jsonrpc":"2.0","method":"node_getL2Tips","params":[],"id":67}' \
+http://localhost:8080 | jq -r ".result.proven.number"
+```
 
+* Save this block number for the next steps
 
-- Now U can see A `ORG_ID` On ur Terminal..Save it!
+* Example output: `12345`
 
+🔍 **Step 2: Generate your sync proof**
 
-* Now It will promt `Would you like to push models you train in the RL swarm to the Hugging Face Hub? [y/N]` Enter `N`
+```
+curl -s -X POST -H 'Content-Type: application/json' \
+-d '{"jsonrpc":"2.0","method":"node_getArchiveSiblingPath","params":["BLOCK_NUMBER","BLOCK_NUMBER"],"id":67}' \
+http://localhost:8080 | jq -r ".result"
+```
 
-<img width="1223" alt="Screenshot 2025-05-01 at 4 47 30 PM" src="https://github.com/user-attachments/assets/05fcfc61-b562-4089-b21f-ba95b1036a24" />
+* Replace both `BLOCK_NUMBER` with your: (check step1)
 
-
-
-
-![image](https://github.com/user-attachments/assets/33344c45-a108-4671-af31-a5e431878736)
-
-
-
-
-
-
-
-
-
+* This will output a long base64-encoded string - (Copy it completely)
 
 
-Follow official Docs for more info and Errors!
+✅ **Step 3: Register with Discord**
+
+
+* join dc- https://discord.gg/aztec 
+
+* Go to `#operators│start-here` Channel
+
+* Type `/operator start` 
+
+![image](https://github.com/user-attachments/assets/bb4985b0-f98a-43ed-b0c1-9f7e95f6de3c)
+
+* Now it will promt u to enter `address` , `block number` , `proof`
+
+* Place your evm wallet address in `address` section
+
+* Place block-number From the `Step-1` 
+
+* Place sync Proof from `Step-2` 
+
+
+* Success message should look like this! & U will get the role!
+
+![Screenshot 2025-05-02 175859](https://github.com/user-attachments/assets/5db4bbac-a2d5-463c-a9c1-ea7ae18b00a5)
+
+![Screenshot 2025-05-02 180049](https://github.com/user-attachments/assets/cb25480d-01ae-45d7-9017-c269e2cc54a6)
+
+
+
+<div  align="center">
+   
+# Register as a Validator 🔗⛓️
+
+</div>
+
+* Replace `Eth_Sepolia_Rpc` with your actual sepolia rpc url from Metamask developer.
+
+* Replace `your-private-key` with your evm wallet pvt key! Dont forget  to add `0x` at starting
+
+* Replace `your-validator-address` with your evm wallet address 
+
+* Replace `your-validator-address` with your evm wallet address
+
+
+```
+aztec add-l1-validator \
+  --l1-rpc-urls Eth_Sepolia_Rpc \
+  --private-key your-private-key \
+  --attester your-validator-address \
+  --proposer-eoa your-validator-address \
+  --staking-asset-handler 0xF739D03e98e23A7B65940848aBA8921fF3bAc4b2 \
+  --l1-chain-id 11155111
+```
+
+
+
+* Note- ![image](https://github.com/user-attachments/assets/50e7e432-c2a1-4356-afe8-9d47a48f8e68)
+
 
 If U have any issue then open a issue on this repo or Dm me on TG~
 
-Thank U! 👨🏻‍💻 Happy Coding💗
+Thank U! 👨🏻‍💻
 
+Happy Coding💗
